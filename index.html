@@ -492,7 +492,7 @@ textarea{resize:vertical}.form-note{font-size:14px;color:var(--muted)}
 <symbol id="close" viewBox="0 0 24 24"><path d="m5 5 14 14m0-14L5 19"/></symbol>
 </defs></svg>
 <a class="skip" href="#main">Skip to content</a>
-<header><div class="head wrap"><a class="logo" href="#home" aria-label="Taco Libre 512 home"></a><nav id="mainnav" aria-label="Main navigation"><a href="#menu">Menu</a><a href="#catering">Catering</a><a href="#story">Our story</a><a href="#visit">Visit us</a></nav><div class="head-actions"><a class="games-link" href="Pacos%20Arcade.html"><svg aria-hidden="true"><use href="#pad"/></svg>Games</a><a class="button gold pickup" href="#pickup"><svg><use href="#bag"/></svg>Order pickup</a><button class="menubtn" aria-expanded="false" aria-controls="mainnav" aria-label="Open navigation"><svg><use href="#hamb"/></svg></button></div></div></header>
+<header><div class="head wrap"><a class="logo" href="#home" aria-label="Taco Libre 512 home"></a><nav id="mainnav" aria-label="Main navigation"><a href="#menu">Menu</a><a href="#catering">Catering</a><a href="#story">Our story</a><a href="#visit">Visit us</a></nav><div class="head-actions"><a class="games-link" href="Pacos%20Arcade.html"><svg aria-hidden="true"><use href="#pad"/></svg>Games</a><a class="button gold pickup" href="https://tacolibre512.com/order" target="_blank" rel="noopener"><svg><use href="#bag"/></svg>Order pickup</a><button class="menubtn" aria-expanded="false" aria-controls="mainnav" aria-label="Open navigation"><svg><use href="#hamb"/></svg></button></div></div></header>
 <main id="main" tabindex="-1">
 <div id="landing">
 <section class="hero" aria-labelledby="herotitle">
@@ -500,7 +500,7 @@ textarea{resize:vertical}.form-note{font-size:14px;color:var(--muted)}
 <div class="hero-bill"><h1 id="herotitle"><a href="#dish-street"><span>Four street</span> <span>tacos <b>$12</b></span></a></h1>
 <p class="fighters"><small>Pick your meat</small><span>Asada</span><i aria-hidden="true">·</i><span>Pastor</span><i aria-hidden="true">·</i><span>Pollo</span></p>
 <p class="hero-where"><a href="https://www.google.com/maps/dir/?api=1&amp;destination=1426+N+Main+St+Taylor+TX+76574" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#pin"/></svg>1426 N Main St, Taylor, Texas</a><a href="tel:+15127678750"><svg aria-hidden="true"><use href="#phone"/></svg>Call 512-767-8750</a></p>
-<div class="actions"><a class="button gold" href="#pickup">Order pickup</a><a class="button line" href="#menu">See the menu</a></div>
+<div class="actions"><a class="button gold" href="https://tacolibre512.com/order" target="_blank" rel="noopener">Order pickup</a><a class="button line" href="#menu">See the menu</a></div>
 <a class="hero-paco" href="#dish-paco"><span class="paco-fig" role="img" aria-label="Paco, the masked luchador"></span><span>Let Paco choose <b>$12</b></span></a></div>
 </section>
 <section class="menu-section wrap" id="menu" aria-labelledby="menu-title"><div class="section-heading"><div><h2 id="menu-title" tabindex="-1">The menu</h2></div></div>
@@ -544,16 +544,16 @@ const menuBtn=document.querySelector('.menubtn');
 const call='<a class="textlink" href="tel:+15127678750">'+icon('phone')+' Call 512-767-8750</a>';
 const checkout='https://tacolibre512.com/order';
 function addDishLink(id) {
- return '<a class="button gold" data-add-dish="'+id+'" href="#pickup">Add to pickup order '+icon('bag')+'</a>';
+ return '<a class="button gold" data-add-dish="'+id+'" href="'+checkout+'" target="_blank" rel="noopener">Order this on Square '+icon('bag')+'</a>';
 }
-const localOrder='<a class="button gold" href="#pickup">Order pickup '+icon('arrow')+'</a>';
+const localOrder='<a class="button gold" href="'+checkout+'" target="_blank" rel="noopener">Order pickup '+icon('arrow')+'</a>';
 const safe=(s)=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let activeCategory='Favorites',origin='',trigger=null,orderState='available',eventData={};
 function renderMenu(category){
  activeCategory=category;
  Array.from(categoryNav.children).forEach(btn=>btn.setAttribute('aria-pressed',String(btn.textContent===category)));
  if(category==='Favorites'){
-  menuBox.innerHTML='<div class="fav"><ol class="card">'+mains.map(d=>'<li><a class="dish" href="#dish-'+d.id+'" aria-label="'+d.full+', '+d.price+'. '+d.caption+'. View details"><span class="dish-img '+(d.id==='paco'?'paco-img':'')+'" style="--pic:var(--'+d.id+')"></span><span class="dish-text"><span class="dish-name">'+d.name+'</span><span class="dish-caption">'+d.caption+'</span></span><span class="price">'+d.price+'</span></a></li>').join('')+'</ol><aside class="meats" aria-label="Meat choices"><h3>Meat choices</h3><ul><li>Asada</li><li>Pastor</li><li>Pollo</li><li>Tripas</li></ul><small>Ask about Tripas availability.</small>'+localOrder+'</aside></div>';
+  menuBox.innerHTML='<div class="fav"><ol class="card">'+mains.map(d=>'<li><a class="dish" href="#dish-'+d.id+'" aria-label="'+d.full+', '+d.price+'. '+d.caption+'. View details"><span class="dish-img '+(d.id==='paco'?'paco-img':'')+'" style="--pic:var(--'+d.id+')"></span><span class="dish-text"><span class="dish-name">'+d.name+'</span><span class="dish-caption">'+d.caption+'</span></span><span class="price">'+d.price+'</span></a></li>').join('')+'</ol><aside class="meats" aria-label="Meat choices"><h3>Meat choices</h3><ul><li>Asada</li><li>Pastor</li><li>Pollo</li><li>Tripas</li></ul>'+localOrder+'</aside></div>';
  }else{
   const cp=catPics[category];menuBox.innerHTML=(category==='Family packs'?'<div class="pack-pic" role="img" aria-label="Paco presenting a tray of thirteen tacos"></div>':'')+(cp?'<div class="cat-layout"><div class="cat-pic" role="img" aria-label="'+cp[1]+'" style="--pic:var(--'+cp[0]+')"></div>':'')+'<div class="menu-list">'+lists[category].map(([name,desc,price])=>'<article><h3>'+name+(price?'<span class="price">'+price+'</span>':'')+'</h3>'+(desc?'<p>'+desc+'</p>':'')+'</article>').join('')+'</div>'+(cp?'</div>':'')+ (category==='Family packs'?'<p style="margin-top:20px">'+addDishLink('pack')+'</p>':'');
  }
@@ -617,11 +617,7 @@ function showOrder() {
     <button class="button gold review-order">Review order ${icon('arrow')}</button></aside></div>` :
     `<p>Call the restaurant for today’s pickup options.</p><p>${call}</p><a class="textlink" href="#menu">Browse the menu</a>`}
     <p class="sr-only" role="status" id="pickup-status"></p>
-    <details><summary>Owner preview settings</summary><label for="demo-status">Preview pickup availability</label>
-    <select id="demo-status"><option value="available">Online ordering available</option><option value="paused">Online ordering paused</option></select></details></div>`;
-  const select = orderView.querySelector('#demo-status');
-  select.value = orderState;
-  select.onchange = () => { orderState = select.value; showOrder(); orderView.querySelector('details').open = true; orderView.querySelector('#demo-status').focus(); };
+  </div>`;
   if (!available) return;
   const ticket = orderView.querySelector('.pickup-ticket');
   orderView.querySelector('.jump-list').onclick = () => { ticket.focus({preventScroll:true}); ticket.scrollIntoView({block:'start'}); };
